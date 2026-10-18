@@ -196,6 +196,14 @@ export async function handleVoiceMessage(ctx: Context, deps: VoiceMessageDeps): 
     return;
   }
 
+  if (audio) {
+    const mimeType = audio.mime_type || "audio/ogg";
+    const filename = audio.file_name || "audio.ogg";
+    logger.info(`[Voice] Ignoring music file ${filename} (${mimeType})`);
+    await ctx.reply(t("bot.file_ignored", { filename, mimeType }));
+    return;
+  }
+
   flushPendingPrompt(ctx.chat!.id);
   const ticket = takeArrivalTicket();
 
@@ -204,9 +212,8 @@ export async function handleVoiceMessage(ctx: Context, deps: VoiceMessageDeps): 
     // Only explicit rules apply here: a voice note has no rule of its own, and the
     // default document actions ("save/open/copy") would hide the "STT not configured"
     // answer behind a menu that makes no sense for a voice message.
-    const audioMessage = ctx.message?.audio;
-    const mimeType = audioMessage?.mime_type || "audio/ogg";
-    const filename = audioMessage?.file_name || "audio.ogg";
+    const mimeType = "audio/ogg";
+    const filename = "audio.ogg";
     const actions = findRuleActions(mimeType, filename);
 
     if (actions && actions.length > 0) {

@@ -650,6 +650,75 @@ describe("bot/handlers/document", () => {
       expect(downloadMock).not.toHaveBeenCalled();
       expect(processPromptMock).not.toHaveBeenCalled();
     });
+
+    it.each([
+      {
+        file_name: "archive.zip",
+        mime_type: "application/zip",
+      },
+      {
+        file_name: "archive.rar",
+        mime_type: "application/vnd.rar",
+      },
+    ])("ignores oversized archive $file_name without showing actions", async (archive) => {
+      const { ctx, replyMock } = createDocumentContext({
+        document: {
+          file_id: "archive-file-id",
+          file_unique_id: "archive-unique-id",
+          file_name: archive.file_name,
+          mime_type: archive.mime_type,
+          file_size: 20 * 1024 * 1024 + 1,
+        },
+      });
+      const { deps, processPromptMock, downloadMock } = createDocumentDeps();
+      mocked.findFileActionsMock.mockReturnValue([
+        { id: "save_default", label: "💾 Guardar", type: "save", path: "/tmp" },
+      ]);
+
+      await handleDocumentMessage(ctx, deps);
+
+      expect(replyMock).toHaveBeenCalledExactlyOnceWith(
+        t("bot.file_ignored", {
+          filename: archive.file_name,
+          mimeType: archive.mime_type,
+        }),
+      );
+      expect(mocked.findFileActionsMock).not.toHaveBeenCalled();
+      expect(downloadMock).not.toHaveBeenCalled();
+      expect(processPromptMock).not.toHaveBeenCalled();
+    });
+
+    it("keeps the file actions menu for an archive exactly at 20 MiB", async () => {
+      const { ctx, replyMock } = createDocumentContext({
+        document: {
+          file_id: "archive-file-id",
+          file_unique_id: "archive-unique-id",
+          file_name: "archive.zip",
+          mime_type: "application/zip",
+          file_size: 20 * 1024 * 1024,
+        },
+      });
+      const { deps, downloadMock, processPromptMock } = createDocumentDeps();
+      mocked.findFileActionsMock.mockReturnValue([
+        { id: "save_default", label: "💾 Guardar", type: "save", path: "/tmp" },
+      ]);
+
+      await handleDocumentMessage(ctx, deps);
+
+      expect(replyMock).toHaveBeenCalledWith(
+        t("bot.file_unsupported_ask", {
+          filename: "archive.zip",
+          mimeType: "application/zip",
+        }),
+        expect.objectContaining({
+          reply_markup: expect.objectContaining({
+            inline_keyboard: expect.any(Array),
+          }),
+        }),
+      );
+      expect(downloadMock).not.toHaveBeenCalled();
+      expect(processPromptMock).not.toHaveBeenCalled();
+    });
   });
 
   describe("error handling", () => {

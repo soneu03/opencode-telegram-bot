@@ -134,6 +134,7 @@ export const it: I18nDictionary = {
   "bot.file_saved": "✅ File salvato in: {path}",
   "bot.file_save_error": "❌ Impossibile salvare il file: {error}",
   "bot.file_unsupported_ask": "📎 File non riconosciuto: {filename} ({mimeType}). Cosa vuoi fare?",
+  "bot.file_ignored": "File non riconosciuto: {filename} ({mimeType}). Ignorato.",
   "bot.file_open_error": "❌ Impossibile aprire il file: {error}",
   "bot.file_exec_error": "❌ Esecuzione fallita: {error}",
   "bot.file_action_expired": "⌛ Questo file non è più disponibile. Invalo di nuovo.",

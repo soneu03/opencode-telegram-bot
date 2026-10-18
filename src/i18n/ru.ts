@@ -123,6 +123,7 @@ export const ru: I18nDictionary = {
   "bot.file_saved": "✅ Файл сохранён в: {path}",
   "bot.file_save_error": "❌ Не удалось сохранить файл: {error}",
   "bot.file_unsupported_ask": "📎 Неизвестный файл: {filename} ({mimeType}). Что вы хотите сделать?",
+  "bot.file_ignored": "Неизвестный файл: {filename} ({mimeType}). Игнорируется.",
   "bot.file_open_error": "❌ Не удалось открыть файл: {error}",
   "bot.file_exec_error": "❌ Не удалось выполнить: {error}",
   "bot.file_action_expired": "⌛ Этот файл больше недоступен. Отправьте его снова.",

@@ -23,6 +23,8 @@ import {
 import { findFileActions } from "../../app/services/file-rules-service.js";
 import { buildCallbackData, rememberFileAction } from "../../app/services/file-action-tokens.js";
 
+const TELEGRAM_MAX_FILE_SIZE_BYTES = 20 * 1024 * 1024;
+
 export interface DocumentHandlerDeps extends ProcessPromptDeps {
   downloadFile?: (
     api: Context["api"],
@@ -231,11 +233,41 @@ export async function handleDocumentMessage(
     }
 
     logger.warn(`[Document] Unsupported document MIME type: ${mimeType}, filename=${filename}`);
+    if (isOversizedArchive(mimeType, filename, doc.file_size)) {
+      logger.info(`[Document] Ignoring oversized archive: ${filename} (${doc.file_size} bytes)`);
+      await ctx.reply(t("bot.file_ignored", { filename, mimeType }));
+      return;
+    }
     await handleUnsupportedDocument(ctx, mimeType, filename, doc.file_id);
   } catch (err) {
     logger.error("[Document] Error handling document message:", err);
     await ctx.reply(t("bot.file_download_error"));
   }
+}
+
+function isOversizedArchive(
+  mimeType: string,
+  filename: string,
+  fileSize: number | undefined,
+): boolean {
+  if (fileSize === undefined || fileSize <= TELEGRAM_MAX_FILE_SIZE_BYTES) {
+    return false;
+  }
+
+  const normalizedMimeType = mimeType.toLowerCase();
+  const normalizedFilename = filename.toLowerCase();
+  const isZip =
+    normalizedMimeType === "application/zip" ||
+    normalizedMimeType === "application/x-zip-compressed" ||
+    normalizedMimeType === "multipart/x-zip" ||
+    normalizedFilename.endsWith(".zip");
+  const isRar =
+    normalizedMimeType === "application/x-rar" ||
+    normalizedMimeType === "application/x-rar-compressed" ||
+    normalizedMimeType === "application/vnd.rar" ||
+    normalizedFilename.endsWith(".rar");
+
+  return isZip || isRar;
 }
 
 async function handleUnsupportedDocument(

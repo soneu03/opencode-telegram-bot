@@ -68,6 +68,30 @@ function createVoiceContext(): {
   return { ctx, replyMock, editMessageTextMock };
 }
 
+function createAudioContext(fileSize?: number): {
+  ctx: Context;
+  replyMock: ReturnType<typeof vi.fn>;
+} {
+  const replyMock = vi.fn().mockResolvedValue({ message_id: 101 });
+  const ctx = {
+    chat: { id: 777 },
+    message: {
+      audio: {
+        file_id: "music-file-id",
+        file_name: "track.flac",
+        mime_type: "audio/flac",
+        file_size: fileSize,
+      },
+    },
+    reply: replyMock,
+    api: {
+      editMessageText: vi.fn().mockResolvedValue(true),
+    },
+  } as unknown as Context;
+
+  return { ctx, replyMock };
+}
+
 function createVoiceDeps(overrides: Record<string, unknown> = {}): {
   deps: VoiceMessageDeps;
   processPromptMock: ReturnType<typeof vi.fn>;
@@ -268,6 +292,35 @@ describe("bot/handlers/voice-handler", () => {
     expect(downloadMock).not.toHaveBeenCalled();
     expect(processPromptMock).not.toHaveBeenCalled();
   });
+
+  it.each([
+    { fileSize: 1024, sttConfigured: true },
+    { fileSize: 25 * 1024 * 1024, sttConfigured: true },
+    { fileSize: undefined, sttConfigured: true },
+    { fileSize: 25 * 1024 * 1024, sttConfigured: false },
+  ])(
+    "ignores music audio without STT or file actions regardless of size ($fileSize, STT=$sttConfigured)",
+    async ({ fileSize, sttConfigured }) => {
+      const { handleVoiceMessage } = await loadVoiceModule();
+      const { ctx, replyMock } = createAudioContext(fileSize);
+      const { deps, processPromptMock, downloadMock, transcribeMock } = createVoiceDeps({
+        isSttConfigured: () => sttConfigured,
+      });
+      mocked.findRuleActionsMock.mockReturnValue([
+        { id: "save_default", label: "💾 Guardar", type: "save", path: "/tmp" },
+      ]);
+
+      await handleVoiceMessage(ctx, deps);
+
+      expect(replyMock).toHaveBeenCalledExactlyOnceWith(
+        t("bot.file_ignored", { filename: "track.flac", mimeType: "audio/flac" }),
+      );
+      expect(mocked.findRuleActionsMock).not.toHaveBeenCalled();
+      expect(downloadMock).not.toHaveBeenCalled();
+      expect(transcribeMock).not.toHaveBeenCalled();
+      expect(processPromptMock).not.toHaveBeenCalled();
+    },
+  );
 
   it("shows empty-result message and skips prompt processing", async () => {
     const { handleVoiceMessage } = await loadVoiceModule();

@@ -126,6 +126,7 @@ export const tr: I18nDictionary = {
   "bot.file_saved": "✅ Dosya kaydedildi: {path}",
   "bot.file_save_error": "❌ Dosya kaydedilemedi: {error}",
   "bot.file_unsupported_ask": "📎 Tanınmayan dosya: {filename} ({mimeType}). Ne yapmak istiyorsunuz?",
+  "bot.file_ignored": "Tanınmayan dosya: {filename} ({mimeType}). Yoksayıldı.",
   "bot.file_open_error": "❌ Dosya açılamadı: {error}",
   "bot.file_exec_error": "❌ Çalıştırma hatası: {error}",
   "bot.file_action_expired": "⌛ Bu dosya artık kullanılamıyor. Tekrar gönderin.",

@@ -130,6 +130,7 @@ export const de: I18nDictionary = {
   "bot.file_saved": "✅ Datei gespeichert unter: {path}",
   "bot.file_save_error": "❌ Datei konnte nicht gespeichert werden: {error}",
   "bot.file_unsupported_ask": "📎 Unbekannte Datei: {filename} ({mimeType}). Was möchtest du tun?",
+  "bot.file_ignored": "Unbekannte Datei: {filename} ({mimeType}). Ignoriert.",
   "bot.file_open_error": "❌ Datei konnte nicht geöffnet werden: {error}",
   "bot.file_exec_error": "❌ Ausführung fehlgeschlagen: {error}",
   "bot.file_action_expired": "⌛ Diese Datei ist nicht mehr verfügbar. Sende sie erneut.",

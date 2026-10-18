@@ -126,6 +126,7 @@ export const ar: I18nDictionary = {
   "bot.file_saved": "✅ تم حفظ الملف في: {path}",
   "bot.file_save_error": "❌ فشل حفظ الملف: {error}",
   "bot.file_unsupported_ask": "📎 ملف غير معروف: {filename} ({mimeType}). ماذا تريد أن تفعل؟",
+  "bot.file_ignored": "ملف غير معروف: {filename} ({mimeType}). تم تجاهله.",
   "bot.file_open_error": "❌ فشل فتح الملف: {error}",
   "bot.file_exec_error": "❌ فشل التنفيذ: {error}",
   "bot.file_action_expired": "⌛ هذا الملف لم يعد متاحًا. أرسله مرة أخرى.",
