@@ -122,7 +122,7 @@ export const en = {
     "⚠️ This file type is not supported. Send an image, document (PDF, DOCX, PPTX), or text/code file.",
   "bot.file_saved": "✅ File saved to: {path}",
   "bot.file_save_error": "❌ Failed to save file: {error}",
-  "bot.file_unsupported_ask": "📎 Unrecognized file: {filename} ({mimeType}). What would you like to do?",
+  "bot.file_unsupported_ask": "📎 Unrecognized file: {filename} ({mimeType}, {size}). What would you like to do?",
   "bot.file_ignored": "Unrecognized file: {filename} ({mimeType}). Ignored.",
   "bot.file_open_error": "❌ Failed to open file: {error}",
   "bot.file_exec_error": "❌ Failed to execute: {error}",

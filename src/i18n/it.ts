@@ -133,7 +133,7 @@ export const it: I18nDictionary = {
     "⚠️ Questo tipo di file non è supportato. Invia un'immagine, un documento (PDF, DOCX, PPTX) o un file di testo/codice.",
   "bot.file_saved": "✅ File salvato in: {path}",
   "bot.file_save_error": "❌ Impossibile salvare il file: {error}",
-  "bot.file_unsupported_ask": "📎 File non riconosciuto: {filename} ({mimeType}). Cosa vuoi fare?",
+  "bot.file_unsupported_ask": "📎 File non riconosciuto: {filename} ({mimeType}, {size}). Cosa vuoi fare?",
   "bot.file_ignored": "File non riconosciuto: {filename} ({mimeType}). Ignorato.",
   "bot.file_open_error": "❌ Impossibile aprire il file: {error}",
   "bot.file_exec_error": "❌ Esecuzione fallita: {error}",

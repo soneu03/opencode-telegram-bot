@@ -113,7 +113,7 @@ export const zh: I18nDictionary = {
     "⚠️ 不支持此文件类型。请发送图片、文档（PDF、DOCX、PPTX）或文本/代码文件。",
   "bot.file_saved": "✅ 文件已保存至：{path}",
   "bot.file_save_error": "❌ 保存文件失败：{error}",
-  "bot.file_unsupported_ask": "📎 无法识别的文件：{filename}（{mimeType}）。您想怎么处理？",
+  "bot.file_unsupported_ask": "📎 无法识别的文件：{filename}（{mimeType}，{size}）。您想怎么处理？",
   "bot.file_ignored": "无法识别的文件：{filename}（{mimeType}）。已忽略。",
   "bot.file_open_error": "❌ 打开文件失败：{error}",
   "bot.file_exec_error": "❌ 执行失败：{error}",

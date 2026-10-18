@@ -122,7 +122,7 @@ export const ru: I18nDictionary = {
     "⚠️ Этот тип файла не поддерживается. Отправьте изображение, документ (PDF, DOCX, PPTX) или текстовый/кодовый файл.",
   "bot.file_saved": "✅ Файл сохранён в: {path}",
   "bot.file_save_error": "❌ Не удалось сохранить файл: {error}",
-  "bot.file_unsupported_ask": "📎 Неизвестный файл: {filename} ({mimeType}). Что вы хотите сделать?",
+  "bot.file_unsupported_ask": "📎 Неизвестный файл: {filename} ({mimeType}, {size}). Что вы хотите сделать?",
   "bot.file_ignored": "Неизвестный файл: {filename} ({mimeType}). Игнорируется.",
   "bot.file_open_error": "❌ Не удалось открыть файл: {error}",
   "bot.file_exec_error": "❌ Не удалось выполнить: {error}",

@@ -125,7 +125,7 @@ export const tr: I18nDictionary = {
     "⚠️ Bu dosya türü desteklenmiyor. Bir görsel, belge (PDF, DOCX, PPTX) veya metin/kod dosyası gönderin.",
   "bot.file_saved": "✅ Dosya kaydedildi: {path}",
   "bot.file_save_error": "❌ Dosya kaydedilemedi: {error}",
-  "bot.file_unsupported_ask": "📎 Tanınmayan dosya: {filename} ({mimeType}). Ne yapmak istiyorsunuz?",
+  "bot.file_unsupported_ask": "📎 Tanınmayan dosya: {filename} ({mimeType}, {size}). Ne yapmak istiyorsunuz?",
   "bot.file_ignored": "Tanınmayan dosya: {filename} ({mimeType}). Yoksayıldı.",
   "bot.file_open_error": "❌ Dosya açılamadı: {error}",
   "bot.file_exec_error": "❌ Çalıştırma hatası: {error}",

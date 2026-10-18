@@ -640,7 +640,7 @@ describe("bot/handlers/document", () => {
       await handleDocumentMessage(ctx, deps);
 
       expect(replyMock).toHaveBeenCalledWith(
-        t("bot.file_unsupported_ask", { filename: "archive.zip", mimeType: "application/zip" }),
+        "📎 Unrecognized file: archive.zip (application/zip, 4.9KB). What would you like to do?",
         expect.objectContaining({
           reply_markup: expect.objectContaining({
             inline_keyboard: expect.any(Array),
@@ -706,10 +706,7 @@ describe("bot/handlers/document", () => {
       await handleDocumentMessage(ctx, deps);
 
       expect(replyMock).toHaveBeenCalledWith(
-        t("bot.file_unsupported_ask", {
-          filename: "archive.zip",
-          mimeType: "application/zip",
-        }),
+        "📎 Unrecognized file: archive.zip (application/zip, 20.0MB). What would you like to do?",
         expect.objectContaining({
           reply_markup: expect.objectContaining({
             inline_keyboard: expect.any(Array),

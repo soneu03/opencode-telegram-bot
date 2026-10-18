@@ -16,7 +16,7 @@ import { createIncomingPrompt, type IncomingPrompt } from "../../app/types/promp
 import { flushPendingPrompt } from "./message-merger.js";
 import { logger } from "../../utils/logger.js";
 import { t } from "../../i18n/index.js";
-import { buildTelegramFileUrl } from "../../app/services/file-download-service.js";
+import { buildTelegramFileUrl, formatFileSize } from "../../app/services/file-download-service.js";
 import { buildQuotedNotification } from "../../app/services/quoted-notification.js";
 import { editBotText } from "../messages/telegram-text.js";
 import { takeArrivalTicket, tryEnqueuePromptIfBusy } from "./prompt-queue-dispatch.js";
@@ -223,7 +223,8 @@ export async function handleVoiceMessage(ctx: Context, deps: VoiceMessageDeps): 
 
       const token = rememberFileAction({ fileId, filename, mimeType });
 
-      await ctx.reply(t("bot.file_unsupported_ask", { filename, mimeType }), {
+      const size = voice?.file_size === undefined ? "?" : formatFileSize(voice.file_size);
+      await ctx.reply(t("bot.file_unsupported_ask", { filename, mimeType, size }), {
         reply_markup: {
           inline_keyboard: actions.map((action) => [
             {

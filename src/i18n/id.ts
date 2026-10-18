@@ -131,7 +131,7 @@ export const id: I18nDictionary = {
     "⚠️ Jenis file ini tidak didukung. Kirim gambar, dokumen (PDF, DOCX, PPTX), atau file teks/kode.",
   "bot.file_saved": "✅ File disimpan di: {path}",
   "bot.file_save_error": "❌ Gagal menyimpan file: {error}",
-  "bot.file_unsupported_ask": "📎 File tidak dikenali: {filename} ({mimeType}). Apa yang ingin Anda lakukan?",
+  "bot.file_unsupported_ask": "📎 File tidak dikenali: {filename} ({mimeType}, {size}). Apa yang ingin Anda lakukan?",
   "bot.file_ignored": "File tidak dikenali: {filename} ({mimeType}). Diabaikan.",
   "bot.file_open_error": "❌ Gagal membuka file: {error}",
   "bot.file_exec_error": "❌ Gagal mengeksekusi: {error}",

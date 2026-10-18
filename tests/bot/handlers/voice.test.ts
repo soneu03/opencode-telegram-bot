@@ -282,7 +282,11 @@ describe("bot/handlers/voice-handler", () => {
     await handleVoiceMessage(ctx, deps);
 
     expect(replyMock).toHaveBeenCalledWith(
-      t("bot.file_unsupported_ask", { filename: "audio.ogg", mimeType: "audio/ogg" }),
+      t("bot.file_unsupported_ask", {
+        filename: "audio.ogg",
+        mimeType: "audio/ogg",
+        size: "?",
+      }),
       expect.objectContaining({
         reply_markup: expect.objectContaining({
           inline_keyboard: expect.any(Array),

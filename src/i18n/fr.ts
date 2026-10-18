@@ -130,7 +130,7 @@ export const fr: I18nDictionary = {
     "⚠️ Ce type de fichier n'est pas pris en charge. Envoyez une image, un document (PDF, DOCX, PPTX) ou un fichier texte/code.",
   "bot.file_saved": "✅ Fichier enregistré dans : {path}",
   "bot.file_save_error": "❌ Échec de l'enregistrement du fichier : {error}",
-  "bot.file_unsupported_ask": "📎 Fichier non reconnu : {filename} ({mimeType}). Que souhaitez-vous faire ?",
+  "bot.file_unsupported_ask": "📎 Fichier non reconnu : {filename} ({mimeType}, {size}). Que souhaitez-vous faire ?",
   "bot.file_ignored": "Fichier non reconnu : {filename} ({mimeType}). Ignoré.",
   "bot.file_open_error": "❌ Échec de l'ouverture du fichier : {error}",
   "bot.file_exec_error": "❌ Échec de l'exécution : {error}",

@@ -6,6 +6,7 @@ import {
   toDataUri,
   isTextMimeType,
   isFileSizeAllowed,
+  formatFileSize,
 } from "../../app/services/file-download-service.js";
 import { isDocExtractorConfigured, extractDocument } from "../../app/services/document-extractor-service.js";
 import { getModelCapabilities, supportsInput } from "../../app/services/model-capabilities-service.js";
@@ -238,7 +239,7 @@ export async function handleDocumentMessage(
       await ctx.reply(t("bot.file_ignored", { filename, mimeType }));
       return;
     }
-    await handleUnsupportedDocument(ctx, mimeType, filename, doc.file_id);
+    await handleUnsupportedDocument(ctx, mimeType, filename, doc.file_id, doc.file_size);
   } catch (err) {
     logger.error("[Document] Error handling document message:", err);
     await ctx.reply(t("bot.file_download_error"));
@@ -275,6 +276,7 @@ async function handleUnsupportedDocument(
   mimeType: string,
   filename: string,
   fileId: string,
+  fileSize: number | undefined,
 ): Promise<void> {
   const actions = findFileActions(mimeType, filename);
   logger.info(
@@ -290,7 +292,8 @@ async function handleUnsupportedDocument(
   // that, so buttons carry a short token and the payload stays in memory.
   const token = rememberFileAction({ fileId, filename, mimeType });
 
-  await ctx.reply(t("bot.file_unsupported_ask", { filename, mimeType }), {
+  const size = fileSize === undefined ? "?" : formatFileSize(fileSize);
+  await ctx.reply(t("bot.file_unsupported_ask", { filename, mimeType, size }), {
     reply_markup: {
       inline_keyboard: actions.map((action) => [
         {
