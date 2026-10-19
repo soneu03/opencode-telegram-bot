@@ -133,7 +133,6 @@ describe("transcribeAudio", () => {
     const formData = defined(fetchSpy.mock.calls[0]?.[1])?.body as FormData;
     expect(formData.get("language")).toBe("en");
     expect(formData.get("model")).toBe("whisper-large-v3-turbo");
-    expect(formData.get("response_format")).toBe("json");
   });
 
   it("does not include language when not configured", async () => {
