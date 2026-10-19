@@ -78,7 +78,6 @@ export async function transcribeAudio(audioBuffer: Buffer, filename: string): Pr
     const formData = new FormData();
     formData.append("file", new Blob([new Uint8Array(audioBuffer)]), filename);
     formData.append("model", config.stt.model);
-    formData.append("response_format", "json");
 
     if (config.stt.language) {
       formData.append("language", config.stt.language);
