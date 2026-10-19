@@ -13,6 +13,7 @@ vi.mock("../../../src/utils/logger.js", () => ({
 const mockStt = vi.hoisted(() => ({
   apiUrl: "",
   apiKey: "",
+  apiPath: "/audio/transcriptions",
   model: "whisper-large-v3-turbo",
   language: "",
   requestFormat: "multipart" as "multipart" | "json",

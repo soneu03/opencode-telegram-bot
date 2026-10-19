@@ -47,7 +47,7 @@ export async function transcribeAudio(audioBuffer: Buffer, filename: string): Pr
     throw new Error("STT is not configured: STT_API_URL and STT_API_KEY are required");
   }
 
-  const url = `${config.stt.apiUrl}/audio/transcriptions`;
+  const url = `${config.stt.apiUrl}${config.stt.apiPath}`;
   const useJsonFormat = config.stt.requestFormat === "json";
 
   const headers: Record<string, string> = {

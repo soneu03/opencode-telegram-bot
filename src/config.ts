@@ -158,21 +158,26 @@ function getOptionalTtsProviderEnvVar(key: string, defaultValue: TtsProvider): T
 
 const VALID_STT_REQUEST_FORMATS: SttRequestFormat[] = ["multipart", "json"];
 
+function getOptionalSttApiPathEnvVar(key: string, defaultValue: string): string {
+  const value = getEnvVar(key, false);
+  return value || defaultValue;
+}
+
 function getOptionalSttRequestFormatEnvVar(
   key: string,
   defaultValue: SttRequestFormat,
 ): SttRequestFormat {
   const value = getEnvVar(key, false);
-
+  
   if (!value) {
     return defaultValue;
   }
-
+  
   const normalized = value.trim().toLowerCase();
   if (VALID_STT_REQUEST_FORMATS.includes(normalized as SttRequestFormat)) {
     return normalized as SttRequestFormat;
   }
-
+  
   return defaultValue;
 }
 
@@ -271,6 +276,7 @@ export const config = {
   },
   stt: {
     apiUrl: getEnvVar("STT_API_URL", false),
+    apiPath: getOptionalSttApiPathEnvVar("STT_API_PATH", "/audio/transcriptions"),
     apiKey: getEnvVar("STT_API_KEY", false),
     model: getEnvVar("STT_MODEL", false) || "whisper-large-v3-turbo",
     language: getEnvVar("STT_LANGUAGE", false),
